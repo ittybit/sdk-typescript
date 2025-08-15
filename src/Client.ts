@@ -33,6 +33,8 @@ export declare namespace IttybitClient {
         abortSignal?: AbortSignal;
         /** Override the ACCEPT_VERSION header */
         version?: string | undefined;
+        /** Additional query string parameters to include in the request. */
+        queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -54,8 +56,8 @@ export class IttybitClient {
                     ACCEPT_VERSION: _options?.version,
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "@ittybit/sdk",
-                    "X-Fern-SDK-Version": "0.8.8",
-                    "User-Agent": "@ittybit/sdk/0.8.8",
+                    "X-Fern-SDK-Version": "0.8.9",
+                    "User-Agent": "@ittybit/sdk/0.8.9",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

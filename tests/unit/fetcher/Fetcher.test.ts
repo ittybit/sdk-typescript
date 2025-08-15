@@ -3,7 +3,7 @@ import stream from "stream";
 import { join } from "path";
 
 import { Fetcher, fetcherImpl } from "../../../src/core/fetcher/Fetcher";
-import { BinaryResponse } from "../../../src/core";
+import type { BinaryResponse } from "../../../src/core";
 
 describe("Test fetcherImpl", () => {
     it("should handle successful request", async () => {
@@ -242,6 +242,9 @@ describe("Test fetcherImpl", () => {
             expect(body).toBeDefined();
             expect(body.bodyUsed).toBe(false);
             expect(typeof body.bytes).toBe("function");
+            if (!body.bytes) {
+                return;
+            }
             const bytes = await body.bytes();
             expect(bytes).toBeInstanceOf(Uint8Array);
             const decoder = new TextDecoder();
