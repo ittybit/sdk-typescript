@@ -16,6 +16,8 @@ export declare namespace Media {
         token: core.Supplier<core.BearerToken>;
         /** Override the ACCEPT_VERSION header */
         version?: core.Supplier<string | undefined>;
+        /** Override the token header */
+        apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -30,6 +32,8 @@ export declare namespace Media {
         abortSignal?: AbortSignal;
         /** Override the ACCEPT_VERSION header */
         version?: string | undefined;
+        /** Override the token header */
+        apiKey?: string;
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
@@ -82,6 +86,7 @@ export class Media {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
+                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -159,6 +164,7 @@ export class Media {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
+                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -230,6 +236,7 @@ export class Media {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
+                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -301,6 +308,7 @@ export class Media {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
+                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -381,6 +389,7 @@ export class Media {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
+                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );

@@ -22,7 +22,7 @@ Instantiate and use the client with the following:
 ```typescript
 import { IttybitClient } from "@ittybit/sdk";
 
-const client = new IttybitClient({ token: "YOUR_TOKEN", version: "YOUR_VERSION" });
+const client = new IttybitClient({ token: "YOUR_TOKEN", version: "YOUR_VERSION", apiKey: "YOUR_API_KEY" });
 await client.automations.create({
     name: "My Example Automation",
     description: "This workflow will run whenever new media is created.",

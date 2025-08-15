@@ -8,7 +8,12 @@ import { IttybitClient } from "../../src/Client";
 describe("Media", () => {
     test("list", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({ token: "test", version: "test", environment: server.baseUrl });
+        const client = new IttybitClient({
+            token: "test",
+            version: "test",
+            apiKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             meta: {
@@ -227,7 +232,12 @@ describe("Media", () => {
 
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({ token: "test", version: "test", environment: server.baseUrl });
+        const client = new IttybitClient({
+            token: "test",
+            version: "test",
+            apiKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = {
             title: "My Video Example",
             alt: "An example video used to demonstrate the ittybit API",
@@ -332,7 +342,12 @@ describe("Media", () => {
 
     test("get", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({ token: "test", version: "test", environment: server.baseUrl });
+        const client = new IttybitClient({
+            token: "test",
+            version: "test",
+            apiKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             meta: {
@@ -478,7 +493,12 @@ describe("Media", () => {
 
     test("delete", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({ token: "test", version: "test", environment: server.baseUrl });
+        const client = new IttybitClient({
+            token: "test",
+            version: "test",
+            apiKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             meta: {
@@ -520,7 +540,12 @@ describe("Media", () => {
 
     test("update", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({ token: "test", version: "test", environment: server.baseUrl });
+        const client = new IttybitClient({
+            token: "test",
+            version: "test",
+            apiKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = {
             title: "Updated Video Example",
             alt: "An updated example video used to demonstrate the ittybit API",
