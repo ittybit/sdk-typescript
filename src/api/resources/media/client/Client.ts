@@ -13,11 +13,9 @@ export declare namespace Media {
         environment?: core.Supplier<environments.IttybitEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         /** Override the ACCEPT_VERSION header */
         version?: core.Supplier<string | undefined>;
-        /** Override the token header */
-        apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -32,8 +30,6 @@ export declare namespace Media {
         abortSignal?: AbortSignal;
         /** Override the ACCEPT_VERSION header */
         version?: string | undefined;
-        /** Override the token header */
-        apiKey?: string;
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
@@ -47,7 +43,7 @@ export declare namespace Media {
 export class Media {
     protected readonly _options: Media.Options;
 
-    constructor(_options: Media.Options) {
+    constructor(_options: Media.Options = {}) {
         this._options = _options;
     }
 
@@ -86,7 +82,6 @@ export class Media {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -151,20 +146,19 @@ export class Media {
     public create(
         request: Ittybit.MediaCreateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.MediaResponse> {
+    ): core.HttpResponsePromise<Ittybit.MediaCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.MediaCreateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaCreateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -186,7 +180,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -223,20 +217,19 @@ export class Media {
      * @example
      *     await client.media.get("med_abcdefgh1234")
      */
-    public get(id: string, requestOptions?: Media.RequestOptions): core.HttpResponsePromise<Ittybit.MediaResponse> {
+    public get(id: string, requestOptions?: Media.RequestOptions): core.HttpResponsePromise<Ittybit.MediaGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaGetResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -255,7 +248,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaGetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -295,20 +288,19 @@ export class Media {
     public delete(
         id: string,
         requestOptions?: Media.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.ConfirmationResponse> {
+    ): core.HttpResponsePromise<Ittybit.MediaDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.ConfirmationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaDeleteResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -327,7 +319,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.ConfirmationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -375,7 +367,7 @@ export class Media {
         id: string,
         request: Ittybit.MediaUpdateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.MediaResponse> {
+    ): core.HttpResponsePromise<Ittybit.MediaUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -383,13 +375,12 @@ export class Media {
         id: string,
         request: Ittybit.MediaUpdateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaUpdateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -411,7 +402,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaUpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -440,6 +431,14 @@ export class Media {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+        const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ITTYBIT_API_KEY"];
+        if (bearer == null) {
+            throw new errors.IttybitError({
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a ITTYBIT_API_KEY environment variable",
+            });
+        }
+
+        return `Bearer ${bearer}`;
     }
 }

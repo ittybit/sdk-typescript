@@ -8,12 +8,7 @@ import { IttybitClient } from "../../src/Client";
 describe("Tasks", () => {
     test("list", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -176,12 +171,7 @@ describe("Tasks", () => {
 
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = {
             file_id: "file_abcdefgh1234",
             kind: "image",
@@ -310,12 +300,7 @@ describe("Tasks", () => {
 
     test("get", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -453,12 +438,7 @@ describe("Tasks", () => {
 
     test("getTaskConfig", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = { video: { formats: ["mp4", "webm"] }, image: {} };
         server.mockEndpoint().get("/tasks-config").respondWith().statusCode(200).jsonBody(rawResponseBody).build();

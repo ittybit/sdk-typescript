@@ -8,12 +8,7 @@ import { IttybitClient } from "../../src/Client";
 describe("Signatures", () => {
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = { filename: "video.mp4", folder: "example", expiry: 1735689600, method: "put" };
         const rawResponseBody = {
             meta: {

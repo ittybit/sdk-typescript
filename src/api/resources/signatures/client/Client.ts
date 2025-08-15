@@ -13,11 +13,9 @@ export declare namespace Signatures {
         environment?: core.Supplier<environments.IttybitEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         /** Override the ACCEPT_VERSION header */
         version?: core.Supplier<string | undefined>;
-        /** Override the token header */
-        apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -32,8 +30,6 @@ export declare namespace Signatures {
         abortSignal?: AbortSignal;
         /** Override the ACCEPT_VERSION header */
         version?: string | undefined;
-        /** Override the token header */
-        apiKey?: string;
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
@@ -47,7 +43,7 @@ export declare namespace Signatures {
 export class Signatures {
     protected readonly _options: Signatures.Options;
 
-    constructor(_options: Signatures.Options) {
+    constructor(_options: Signatures.Options = {}) {
         this._options = _options;
     }
 
@@ -68,20 +64,19 @@ export class Signatures {
     public create(
         request: Ittybit.SignaturesCreateRequest,
         requestOptions?: Signatures.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.SignatureResponse> {
+    ): core.HttpResponsePromise<Ittybit.SignaturesCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.SignaturesCreateRequest,
         requestOptions?: Signatures.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.SignatureResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.SignaturesCreateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -103,7 +98,7 @@ export class Signatures {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.SignatureResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.SignaturesCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -132,6 +127,14 @@ export class Signatures {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+        const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ITTYBIT_API_KEY"];
+        if (bearer == null) {
+            throw new errors.IttybitError({
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a ITTYBIT_API_KEY environment variable",
+            });
+        }
+
+        return `Bearer ${bearer}`;
     }
 }

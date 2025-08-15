@@ -16,11 +16,9 @@ export declare namespace IttybitClient {
         environment?: core.Supplier<environments.IttybitEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         /** Override the ACCEPT_VERSION header */
         version?: core.Supplier<string | undefined>;
-        /** Override the token header */
-        apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -35,8 +33,6 @@ export declare namespace IttybitClient {
         abortSignal?: AbortSignal;
         /** Override the ACCEPT_VERSION header */
         version?: string | undefined;
-        /** Override the token header */
-        apiKey?: string;
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
@@ -52,17 +48,16 @@ export class IttybitClient {
     protected _tasks: Tasks | undefined;
     protected _signatures: Signatures | undefined;
 
-    constructor(_options: IttybitClient.Options) {
+    constructor(_options: IttybitClient.Options = {}) {
         this._options = {
             ..._options,
             headers: mergeHeaders(
                 {
                     ACCEPT_VERSION: _options?.version,
-                    token: _options?.apiKey,
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "@ittybit/sdk",
-                    "X-Fern-SDK-Version": "0.8.12",
-                    "User-Agent": "@ittybit/sdk/0.8.12",
+                    "X-Fern-SDK-Version": "0.8.14",
+                    "User-Agent": "@ittybit/sdk/0.8.14",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

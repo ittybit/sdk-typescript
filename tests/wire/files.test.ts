@@ -8,12 +8,7 @@ import { IttybitClient } from "../../src/Client";
 describe("Files", () => {
     test("list", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -204,12 +199,7 @@ describe("Files", () => {
 
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = {
             url: "https://ittyb.it/sample.mp4",
             folder: "ittybit/samples",
@@ -330,12 +320,7 @@ describe("Files", () => {
 
     test("get", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -443,12 +428,7 @@ describe("Files", () => {
 
     test("delete", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -490,12 +470,7 @@ describe("Files", () => {
 
     test("update", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = {
             folder: "updated/folder",
             filename: "new_filename.mp4",

@@ -13,11 +13,9 @@ export declare namespace Automations {
         environment?: core.Supplier<environments.IttybitEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         /** Override the ACCEPT_VERSION header */
         version?: core.Supplier<string | undefined>;
-        /** Override the token header */
-        apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -32,8 +30,6 @@ export declare namespace Automations {
         abortSignal?: AbortSignal;
         /** Override the ACCEPT_VERSION header */
         version?: string | undefined;
-        /** Override the token header */
-        apiKey?: string;
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
@@ -47,7 +43,7 @@ export declare namespace Automations {
 export class Automations {
     protected readonly _options: Automations.Options;
 
-    constructor(_options: Automations.Options) {
+    constructor(_options: Automations.Options = {}) {
         this._options = _options;
     }
 
@@ -63,14 +59,14 @@ export class Automations {
     public list(
         request: Ittybit.AutomationsListRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationListResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Ittybit.AutomationsListRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationListResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsListResponse>> {
         const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
@@ -86,7 +82,6 @@ export class Automations {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -105,7 +100,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -165,20 +160,19 @@ export class Automations {
     public create(
         request: Ittybit.AutomationsCreateRequest,
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.AutomationsCreateRequest,
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsCreateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -200,7 +194,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -240,20 +234,19 @@ export class Automations {
     public get(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsGetResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -272,7 +265,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsGetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -312,20 +305,19 @@ export class Automations {
     public delete(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.ConfirmationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.ConfirmationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsDeleteResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -344,7 +336,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.ConfirmationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -403,7 +395,7 @@ export class Automations {
         id: string,
         request: Ittybit.AutomationsUpdateRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -411,13 +403,12 @@ export class Automations {
         id: string,
         request: Ittybit.AutomationsUpdateRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsUpdateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 ACCEPT_VERSION: requestOptions?.version,
-                token: requestOptions?.apiKey,
             }),
             requestOptions?.headers,
         );
@@ -439,7 +430,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsUpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -468,6 +459,14 @@ export class Automations {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+        const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ITTYBIT_API_KEY"];
+        if (bearer == null) {
+            throw new errors.IttybitError({
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a ITTYBIT_API_KEY environment variable",
+            });
+        }
+
+        return `Bearer ${bearer}`;
     }
 }

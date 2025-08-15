@@ -8,12 +8,7 @@ import { IttybitClient } from "../../src/Client";
 describe("Automations", () => {
     test("list", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -143,12 +138,7 @@ describe("Automations", () => {
 
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "My Example Automation",
             description: "This workflow will run whenever new media is created.",
@@ -280,12 +270,7 @@ describe("Automations", () => {
 
     test("get", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -384,12 +369,7 @@ describe("Automations", () => {
 
     test("delete", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             meta: {
@@ -431,12 +411,7 @@ describe("Automations", () => {
 
     test("update", async () => {
         const server = mockServerPool.createServer();
-        const client = new IttybitClient({
-            token: "test",
-            version: "test",
-            apiKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "My Updated Automation",
             workflow: [
