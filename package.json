@@ -1,6 +1,6 @@
 {
     "name": "@ittybit/sdk",
-    "version": "0.8.15",
+    "version": "0.9.0",
     "private": false,
     "repository": "github:ittybit/sdk-typescript",
     "type": "commonjs",
