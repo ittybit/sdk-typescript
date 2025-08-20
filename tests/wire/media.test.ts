@@ -112,7 +112,14 @@ describe("Media", () => {
                 last: "https://api.ittybit.com/media?page=5",
             },
         };
-        server.mockEndpoint().get("/media").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/media")
+            .header("Accept-Version", "2025-08-20")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.media.list();
         expect(response).toEqual({
@@ -272,6 +279,7 @@ describe("Media", () => {
         server
             .mockEndpoint()
             .post("/media")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -400,6 +408,7 @@ describe("Media", () => {
         server
             .mockEndpoint()
             .get("/media/med_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -494,6 +503,7 @@ describe("Media", () => {
         server
             .mockEndpoint()
             .delete("/media/med_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -581,6 +591,7 @@ describe("Media", () => {
         server
             .mockEndpoint()
             .patch("/media/med_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)

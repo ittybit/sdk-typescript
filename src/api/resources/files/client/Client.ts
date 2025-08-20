@@ -59,14 +59,14 @@ export class Files {
     public list(
         request: Ittybit.FilesListRequest = {},
         requestOptions?: Files.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.FileListResponse> {
+    ): core.HttpResponsePromise<Ittybit.FilesListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Ittybit.FilesListRequest = {},
         requestOptions?: Files.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.FileListResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.FilesListResponse>> {
         const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
@@ -81,6 +81,7 @@ export class Files {
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -100,7 +101,7 @@ export class Files {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.FileListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.FilesListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -147,18 +148,19 @@ export class Files {
     public create(
         request: Ittybit.FilesCreateRequest,
         requestOptions?: Files.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.FileResponse> {
+    ): core.HttpResponsePromise<Ittybit.FilesCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.FilesCreateRequest,
         requestOptions?: Files.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.FileResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.FilesCreateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -181,7 +183,7 @@ export class Files {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.FileResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.FilesCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -218,18 +220,19 @@ export class Files {
      * @example
      *     await client.files.get("file_abcdefgh1234")
      */
-    public get(id: string, requestOptions?: Files.RequestOptions): core.HttpResponsePromise<Ittybit.FileResponse> {
+    public get(id: string, requestOptions?: Files.RequestOptions): core.HttpResponsePromise<Ittybit.FilesGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Files.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.FileResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.FilesGetResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -249,7 +252,7 @@ export class Files {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.FileResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.FilesGetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -289,18 +292,19 @@ export class Files {
     public delete(
         id: string,
         requestOptions?: Files.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.ConfirmationResponse> {
+    ): core.HttpResponsePromise<Ittybit.FilesDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Files.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.ConfirmationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.FilesDeleteResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -320,7 +324,7 @@ export class Files {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.ConfirmationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.FilesDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -368,7 +372,7 @@ export class Files {
         id: string,
         request: Ittybit.FilesUpdateRequest = {},
         requestOptions?: Files.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.FileResponse> {
+    ): core.HttpResponsePromise<Ittybit.FilesUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -376,11 +380,12 @@ export class Files {
         id: string,
         request: Ittybit.FilesUpdateRequest = {},
         requestOptions?: Files.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.FileResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.FilesUpdateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -403,7 +408,7 @@ export class Files {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.FileResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.FilesUpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

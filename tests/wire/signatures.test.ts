@@ -33,6 +33,7 @@ describe("Signatures", () => {
         server
             .mockEndpoint()
             .post("/signatures")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)

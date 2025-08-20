@@ -64,18 +64,19 @@ export class Signatures {
     public create(
         request: Ittybit.SignaturesCreateRequest,
         requestOptions?: Signatures.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.SignatureResponse> {
+    ): core.HttpResponsePromise<Ittybit.SignaturesCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.SignaturesCreateRequest,
         requestOptions?: Signatures.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.SignatureResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.SignaturesCreateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -98,7 +99,7 @@ export class Signatures {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.SignatureResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.SignaturesCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -82,7 +82,14 @@ describe("Tasks", () => {
                 last: "https://api.ittybit.com/tasks?page=5",
             },
         };
-        server.mockEndpoint().get("/tasks").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/tasks")
+            .header("Accept-Version", "2025-08-20")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.tasks.list();
         expect(response).toEqual({
@@ -220,6 +227,7 @@ describe("Tasks", () => {
         server
             .mockEndpoint()
             .post("/tasks")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -354,6 +362,7 @@ describe("Tasks", () => {
         server
             .mockEndpoint()
             .get("/tasks/task_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
