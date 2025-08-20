@@ -59,14 +59,14 @@ export class Tasks {
     public list(
         request: Ittybit.TasksListRequest = {},
         requestOptions?: Tasks.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.TasksListResponse> {
+    ): core.HttpResponsePromise<Ittybit.TaskListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Ittybit.TasksListRequest = {},
         requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.TasksListResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.TaskListResponse>> {
         const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
@@ -100,7 +100,7 @@ export class Tasks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.TasksListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.TaskListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -146,14 +146,14 @@ export class Tasks {
     public create(
         request?: unknown,
         requestOptions?: Tasks.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.TasksCreateResponse> {
+    ): core.HttpResponsePromise<Ittybit.TaskResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request?: unknown,
         requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.TasksCreateResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.TaskResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -180,7 +180,7 @@ export class Tasks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.TasksCreateResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.TaskResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -217,14 +217,14 @@ export class Tasks {
      * @example
      *     await client.tasks.get("task_abcdefgh1234")
      */
-    public get(id: string, requestOptions?: Tasks.RequestOptions): core.HttpResponsePromise<Ittybit.TasksGetResponse> {
+    public get(id: string, requestOptions?: Tasks.RequestOptions): core.HttpResponsePromise<Ittybit.TaskResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.TasksGetResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.TaskResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -248,7 +248,7 @@ export class Tasks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.TasksGetResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.TaskResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

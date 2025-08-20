@@ -146,14 +146,14 @@ export class Media {
     public create(
         request: Ittybit.MediaCreateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.MediaCreateResponse> {
+    ): core.HttpResponsePromise<Ittybit.MediaResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.MediaCreateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaCreateResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -180,7 +180,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaCreateResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -217,14 +217,14 @@ export class Media {
      * @example
      *     await client.media.get("med_abcdefgh1234")
      */
-    public get(id: string, requestOptions?: Media.RequestOptions): core.HttpResponsePromise<Ittybit.MediaGetResponse> {
+    public get(id: string, requestOptions?: Media.RequestOptions): core.HttpResponsePromise<Ittybit.MediaResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaGetResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -248,7 +248,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaGetResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -288,14 +288,14 @@ export class Media {
     public delete(
         id: string,
         requestOptions?: Media.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.MediaDeleteResponse> {
+    ): core.HttpResponsePromise<Ittybit.ConfirmationResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaDeleteResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.ConfirmationResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -319,7 +319,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.ConfirmationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -367,7 +367,7 @@ export class Media {
         id: string,
         request: Ittybit.MediaUpdateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.MediaUpdateResponse> {
+    ): core.HttpResponsePromise<Ittybit.MediaResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -375,7 +375,7 @@ export class Media {
         id: string,
         request: Ittybit.MediaUpdateRequest = {},
         requestOptions?: Media.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.MediaUpdateResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.MediaResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -402,7 +402,7 @@ export class Media {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.MediaUpdateResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.MediaResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

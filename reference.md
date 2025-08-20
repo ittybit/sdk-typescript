@@ -2,7 +2,7 @@
 
 ## Automations
 
-<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">list</a>({ ...params }) -> Ittybit.AutomationsListResponse</code></summary>
+<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">list</a>({ ...params }) -> Ittybit.AutomationListResponse</code></summary>
 <dl>
 <dd>
 
@@ -65,7 +65,7 @@ await client.automations.list();
 </dl>
 </details>
 
-<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">create</a>({ ...params }) -> Ittybit.AutomationsCreateResponse</code></summary>
+<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">create</a>({ ...params }) -> Ittybit.AutomationResponse</code></summary>
 <dl>
 <dd>
 
@@ -154,7 +154,7 @@ await client.automations.create({
 </dl>
 </details>
 
-<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">get</a>(id) -> Ittybit.AutomationsGetResponse</code></summary>
+<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">get</a>(id) -> Ittybit.AutomationResponse</code></summary>
 <dl>
 <dd>
 
@@ -217,7 +217,7 @@ await client.automations.get("auto_abcdefgh1234");
 </dl>
 </details>
 
-<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">delete</a>(id) -> Ittybit.AutomationsDeleteResponse</code></summary>
+<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">delete</a>(id) -> Ittybit.ConfirmationResponse</code></summary>
 <dl>
 <dd>
 
@@ -280,7 +280,7 @@ await client.automations.delete("auto_abcdefgh1234");
 </dl>
 </details>
 
-<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">update</a>(id, { ...params }) -> Ittybit.AutomationsUpdateResponse</code></summary>
+<details><summary><code>client.automations.<a href="/src/api/resources/automations/client/Client.ts">update</a>(id, { ...params }) -> Ittybit.AutomationResponse</code></summary>
 <dl>
 <dd>
 
@@ -377,7 +377,7 @@ await client.automations.update("auto_abcdefgh1234", {
 
 ## Files
 
-<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">list</a>({ ...params }) -> Ittybit.FilesListResponse</code></summary>
+<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">list</a>({ ...params }) -> Ittybit.FileListResponse</code></summary>
 <dl>
 <dd>
 
@@ -440,7 +440,7 @@ await client.files.list();
 </dl>
 </details>
 
-<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">create</a>({ ...params }) -> Ittybit.FilesCreateResponse</code></summary>
+<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">create</a>({ ...params }) -> Ittybit.FileResponse</code></summary>
 <dl>
 <dd>
 
@@ -510,7 +510,7 @@ await client.files.create({
 </dl>
 </details>
 
-<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">get</a>(id) -> Ittybit.FilesGetResponse</code></summary>
+<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">get</a>(id) -> Ittybit.FileResponse</code></summary>
 <dl>
 <dd>
 
@@ -573,7 +573,7 @@ await client.files.get("file_abcdefgh1234");
 </dl>
 </details>
 
-<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">delete</a>(id) -> Ittybit.FilesDeleteResponse</code></summary>
+<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">delete</a>(id) -> Ittybit.ConfirmationResponse</code></summary>
 <dl>
 <dd>
 
@@ -636,7 +636,7 @@ await client.files.delete("file_abcdefgh1234");
 </dl>
 </details>
 
-<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">update</a>(id, { ...params }) -> Ittybit.FilesUpdateResponse</code></summary>
+<details><summary><code>client.files.<a href="/src/api/resources/files/client/Client.ts">update</a>(id, { ...params }) -> Ittybit.FileResponse</code></summary>
 <dl>
 <dd>
 
@@ -778,7 +778,7 @@ await client.media.list();
 </dl>
 </details>
 
-<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">create</a>({ ...params }) -> Ittybit.MediaCreateResponse</code></summary>
+<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">create</a>({ ...params }) -> Ittybit.MediaResponse</code></summary>
 <dl>
 <dd>
 
@@ -847,7 +847,7 @@ await client.media.create({
 </dl>
 </details>
 
-<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">get</a>(id) -> Ittybit.MediaGetResponse</code></summary>
+<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">get</a>(id) -> Ittybit.MediaResponse</code></summary>
 <dl>
 <dd>
 
@@ -910,7 +910,7 @@ await client.media.get("med_abcdefgh1234");
 </dl>
 </details>
 
-<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">delete</a>(id) -> Ittybit.MediaDeleteResponse</code></summary>
+<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">delete</a>(id) -> Ittybit.ConfirmationResponse</code></summary>
 <dl>
 <dd>
 
@@ -973,7 +973,7 @@ await client.media.delete("med_abcdefgh1234");
 </dl>
 </details>
 
-<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">update</a>(id, { ...params }) -> Ittybit.MediaUpdateResponse</code></summary>
+<details><summary><code>client.media.<a href="/src/api/resources/media/client/Client.ts">update</a>(id, { ...params }) -> Ittybit.MediaResponse</code></summary>
 <dl>
 <dd>
 
@@ -1052,7 +1052,7 @@ await client.media.update("med_abcdefgh1234", {
 
 ## Tasks
 
-<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">list</a>({ ...params }) -> Ittybit.TasksListResponse</code></summary>
+<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">list</a>({ ...params }) -> Ittybit.TaskListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1115,7 +1115,7 @@ await client.tasks.list();
 </dl>
 </details>
 
-<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">create</a>({ ...params }) -> Ittybit.TasksCreateResponse</code></summary>
+<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">create</a>({ ...params }) -> Ittybit.TaskResponse</code></summary>
 <dl>
 <dd>
 
@@ -1184,7 +1184,7 @@ await client.tasks.create({
 </dl>
 </details>
 
-<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">get</a>(id) -> Ittybit.TasksGetResponse</code></summary>
+<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">get</a>(id) -> Ittybit.TaskResponse</code></summary>
 <dl>
 <dd>
 
@@ -1304,7 +1304,7 @@ await client.tasks.getTaskConfig();
 
 ## Signatures
 
-<details><summary><code>client.signatures.<a href="/src/api/resources/signatures/client/Client.ts">create</a>({ ...params }) -> Ittybit.SignaturesCreateResponse</code></summary>
+<details><summary><code>client.signatures.<a href="/src/api/resources/signatures/client/Client.ts">create</a>({ ...params }) -> Ittybit.SignatureResponse</code></summary>
 <dl>
 <dd>
 
