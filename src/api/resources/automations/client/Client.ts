@@ -59,14 +59,14 @@ export class Automations {
     public list(
         request: Ittybit.AutomationsListRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationListResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsListResponseItem[]> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Ittybit.AutomationsListRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationListResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsListResponseItem[]>> {
         const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
@@ -101,7 +101,10 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationListResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Ittybit.AutomationsListResponseItem[],
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -161,14 +164,14 @@ export class Automations {
     public create(
         request: Ittybit.AutomationsCreateRequest,
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Ittybit.AutomationsCreateRequest,
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsCreateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -195,7 +198,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -235,14 +238,14 @@ export class Automations {
     public get(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsGetResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -267,7 +270,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsGetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -307,14 +310,14 @@ export class Automations {
     public delete(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.ConfirmationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.ConfirmationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsDeleteResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -339,7 +342,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.ConfirmationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -398,7 +401,7 @@ export class Automations {
         id: string,
         request: Ittybit.AutomationsUpdateRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.AutomationResponse> {
+    ): core.HttpResponsePromise<Ittybit.AutomationsUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -406,7 +409,7 @@ export class Automations {
         id: string,
         request: Ittybit.AutomationsUpdateRequest = {},
         requestOptions?: Automations.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.AutomationResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.AutomationsUpdateResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
@@ -434,7 +437,7 @@ export class Automations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.AutomationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.AutomationsUpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

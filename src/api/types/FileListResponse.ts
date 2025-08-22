@@ -4,4 +4,4 @@
 
 import * as Ittybit from "../index.js";
 
-export type FileListResponse = Ittybit.File_[];
+export type FileListResponse = Ittybit.FileListResponseItem[];

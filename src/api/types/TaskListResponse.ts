@@ -4,4 +4,4 @@
 
 import * as Ittybit from "../index.js";
 
-export type TaskListResponse = Ittybit.Task[];
+export type TaskListResponse = Ittybit.TaskListResponseItem[];

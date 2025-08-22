@@ -4,4 +4,4 @@
 
 import * as Ittybit from "../index.js";
 
-export type AutomationListResponse = Ittybit.Automation[];
+export type AutomationListResponse = Ittybit.AutomationListResponseItem[];

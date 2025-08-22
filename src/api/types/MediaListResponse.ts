@@ -4,4 +4,4 @@
 
 import * as Ittybit from "../index.js";
 
-export type MediaListResponse = Ittybit.Media[];
+export type MediaListResponse = Ittybit.MediaListResponseItem[];
