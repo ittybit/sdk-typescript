@@ -10,6 +10,7 @@ import { Files } from "./api/resources/files/client/Client.js";
 import { Media } from "./api/resources/media/client/Client.js";
 import { Tasks } from "./api/resources/tasks/client/Client.js";
 import { Signatures } from "./api/resources/signatures/client/Client.js";
+import { ApiDev } from "./api/resources/apiDev/client/Client.js";
 
 export declare namespace IttybitClient {
     export interface Options {
@@ -47,6 +48,7 @@ export class IttybitClient {
     protected _media: Media | undefined;
     protected _tasks: Tasks | undefined;
     protected _signatures: Signatures | undefined;
+    protected _apiDev: ApiDev | undefined;
 
     constructor(_options: IttybitClient.Options = {}) {
         this._options = {
@@ -56,7 +58,7 @@ export class IttybitClient {
                     ACCEPT_VERSION: _options?.version,
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "0.10.0",
+                    "X-Fern-SDK-Version": "0.10.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -83,5 +85,9 @@ export class IttybitClient {
 
     public get signatures(): Signatures {
         return (this._signatures ??= new Signatures(this._options));
+    }
+
+    public get apiDev(): ApiDev {
+        return (this._apiDev ??= new ApiDev(this._options));
     }
 }

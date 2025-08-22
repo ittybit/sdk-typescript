@@ -10,155 +10,8 @@ describe("Automations", () => {
         const server = mockServerPool.createServer();
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "list",
-                limit: 10,
-                total: 5,
-                page: 1,
-                pages: 1,
-            },
-            data: [
-                {
-                    id: "auto_abcdefgh1234",
-                    name: "My Example Automation",
-                    description: "This workflow will run whenever new media is created.",
-                    trigger: { kind: "event", event: "media.created" },
-                    workflow: [
-                        { kind: "description" },
-                        { kind: "image", ref: "thumbnail" },
-                        {
-                            kind: "conditions",
-                            conditions: [{ prop: "kind", value: "video" }],
-                            next: [{ kind: "subtitle", ref: "subtitle" }],
-                        },
-                    ],
-                    status: "active",
-                    created: "2025-01-01T01:23:45Z",
-                    updated: "2025-01-01T01:23:45Z",
-                },
-                {
-                    id: "id",
-                    name: "name",
-                    description: "description",
-                    trigger: { kind: "event", event: "media.created" },
-                    workflow: [{ kind: "video" }],
-                    status: "active",
-                    created: "2024-01-15T09:30:00Z",
-                    updated: "2024-01-15T09:30:00Z",
-                },
-            ],
-            links: {
-                self: "https://api.ittybit.com/automations?page=1",
-                first: "https://api.ittybit.com/automations?page=1",
-                last: "https://api.ittybit.com/automations?page=1",
-            },
-        };
-        server.mockEndpoint().get("/automations").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.automations.list();
-        expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "list",
-                limit: 10,
-                total: 5,
-                page: 1,
-                pages: 1,
-            },
-            data: [
-                {
-                    id: "auto_abcdefgh1234",
-                    name: "My Example Automation",
-                    description: "This workflow will run whenever new media is created.",
-                    trigger: {
-                        kind: "event",
-                        event: "media.created",
-                    },
-                    workflow: [
-                        {
-                            kind: "description",
-                        },
-                        {
-                            kind: "image",
-                            ref: "thumbnail",
-                        },
-                        {
-                            kind: "conditions",
-                            conditions: [
-                                {
-                                    prop: "kind",
-                                    value: "video",
-                                },
-                            ],
-                            next: [
-                                {
-                                    kind: "subtitle",
-                                    ref: "subtitle",
-                                },
-                            ],
-                        },
-                    ],
-                    status: "active",
-                    created: "2025-01-01T01:23:45Z",
-                    updated: "2025-01-01T01:23:45Z",
-                },
-                {
-                    id: "id",
-                    name: "name",
-                    description: "description",
-                    trigger: {
-                        kind: "event",
-                        event: "media.created",
-                    },
-                    workflow: [
-                        {
-                            kind: "video",
-                        },
-                    ],
-                    status: "active",
-                    created: "2024-01-15T09:30:00Z",
-                    updated: "2024-01-15T09:30:00Z",
-                },
-            ],
-            links: {
-                self: "https://api.ittybit.com/automations?page=1",
-                first: "https://api.ittybit.com/automations?page=1",
-                last: "https://api.ittybit.com/automations?page=1",
-            },
-        });
-    });
-
-    test("create", async () => {
-        const server = mockServerPool.createServer();
-        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "My Example Automation",
-            description: "This workflow will run whenever new media is created.",
-            trigger: { kind: "event", event: "media.created" },
-            workflow: [
-                { kind: "description" },
-                { kind: "image", ref: "thumbnail" },
-                { kind: "video", next: [{ kind: "subtitles", ref: "subtitles" }] },
-            ],
-            status: "active",
-        };
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
+        const rawResponseBody = [
+            {
                 id: "auto_abcdefgh1234",
                 name: "My Example Automation",
                 description: "This workflow will run whenever new media is created.",
@@ -176,10 +29,115 @@ describe("Automations", () => {
                 created: "2025-01-01T01:23:45Z",
                 updated: "2025-01-01T01:23:45Z",
             },
-            links: {
-                self: "https://api.ittybit.com/automations/auto_abcdefgh1234",
-                parent: "https://api.ittybit.com/automations",
+            {
+                id: "id",
+                name: "name",
+                description: "description",
+                trigger: { kind: "event", event: "media.created" },
+                workflow: [{ kind: "video" }],
+                status: "active",
+                created: "2024-01-15T09:30:00Z",
+                updated: "2024-01-15T09:30:00Z",
             },
+        ];
+        server
+            .mockEndpoint()
+            .get("/automations")
+            .header("Accept-Version", "2025-08-20")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.automations.list();
+        expect(response).toEqual([
+            {
+                id: "auto_abcdefgh1234",
+                name: "My Example Automation",
+                description: "This workflow will run whenever new media is created.",
+                trigger: {
+                    kind: "event",
+                    event: "media.created",
+                },
+                workflow: [
+                    {
+                        kind: "description",
+                    },
+                    {
+                        kind: "image",
+                        ref: "thumbnail",
+                    },
+                    {
+                        kind: "conditions",
+                        conditions: [
+                            {
+                                prop: "kind",
+                                value: "video",
+                            },
+                        ],
+                        next: [
+                            {
+                                kind: "subtitle",
+                                ref: "subtitle",
+                            },
+                        ],
+                    },
+                ],
+                status: "active",
+                created: "2025-01-01T01:23:45Z",
+                updated: "2025-01-01T01:23:45Z",
+            },
+            {
+                id: "id",
+                name: "name",
+                description: "description",
+                trigger: {
+                    kind: "event",
+                    event: "media.created",
+                },
+                workflow: [
+                    {
+                        kind: "video",
+                    },
+                ],
+                status: "active",
+                created: "2024-01-15T09:30:00Z",
+                updated: "2024-01-15T09:30:00Z",
+            },
+        ]);
+    });
+
+    test("create", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "My Example Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: { kind: "event", event: "media.created" },
+            workflow: [
+                { kind: "description" },
+                { kind: "image", ref: "thumbnail" },
+                { kind: "video", next: [{ kind: "subtitles", ref: "subtitles" }] },
+            ],
+            status: "active",
+        };
+        const rawResponseBody = {
+            id: "auto_abcdefgh1234",
+            name: "My Example Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: { kind: "event", event: "media.created" },
+            workflow: [
+                { kind: "description", ref: "ref", next: [{}] },
+                { kind: "image", ref: "thumbnail", next: [{}] },
+                {
+                    kind: "conditions",
+                    conditions: [{ prop: "kind", value: "video" }],
+                    next: [{ kind: "subtitle", ref: "subtitle" }],
+                },
+            ],
+            status: "active",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
         };
         server
             .mockEndpoint()
@@ -218,53 +176,43 @@ describe("Automations", () => {
             status: "active",
         });
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
+            id: "auto_abcdefgh1234",
+            name: "My Example Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: {
+                kind: "event",
+                event: "media.created",
             },
-            data: {
-                id: "auto_abcdefgh1234",
-                name: "My Example Automation",
-                description: "This workflow will run whenever new media is created.",
-                trigger: {
-                    kind: "event",
-                    event: "media.created",
+            workflow: [
+                {
+                    kind: "description",
+                    ref: "ref",
+                    next: [{}],
                 },
-                workflow: [
-                    {
-                        kind: "description",
-                    },
-                    {
-                        kind: "image",
-                        ref: "thumbnail",
-                    },
-                    {
-                        kind: "conditions",
-                        conditions: [
-                            {
-                                prop: "kind",
-                                value: "video",
-                            },
-                        ],
-                        next: [
-                            {
-                                kind: "subtitle",
-                                ref: "subtitle",
-                            },
-                        ],
-                    },
-                ],
-                status: "active",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
-            },
-            links: {
-                self: "https://api.ittybit.com/automations/auto_abcdefgh1234",
-                parent: "https://api.ittybit.com/automations",
-            },
+                {
+                    kind: "image",
+                    ref: "thumbnail",
+                    next: [{}],
+                },
+                {
+                    kind: "conditions",
+                    conditions: [
+                        {
+                            prop: "kind",
+                            value: "video",
+                        },
+                    ],
+                    next: [
+                        {
+                            kind: "subtitle",
+                            ref: "subtitle",
+                        },
+                    ],
+                },
+            ],
+            status: "active",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
         });
     });
 
@@ -273,40 +221,27 @@ describe("Automations", () => {
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                id: "auto_abcdefgh1234",
-                name: "My Example Automation",
-                description: "This workflow will run whenever new media is created.",
-                trigger: { kind: "event", event: "media.created" },
-                workflow: [
-                    { kind: "description" },
-                    { kind: "image", ref: "thumbnail" },
-                    {
-                        kind: "conditions",
-                        conditions: [{ prop: "kind", value: "video" }],
-                        next: [{ kind: "subtitle", ref: "subtitle" }],
-                    },
-                ],
-                status: "active",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
-            },
-            error: { message: "message" },
-            links: {
-                self: "https://api.ittybit.com/automations/auto_abcdefgh1234",
-                parent: "https://api.ittybit.com/automations",
-            },
+            id: "auto_abcdefgh1234",
+            name: "My Example Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: { kind: "event", event: "media.created" },
+            workflow: [
+                { kind: "description", ref: "ref", next: [{}] },
+                { kind: "image", ref: "thumbnail", next: [{}] },
+                {
+                    kind: "conditions",
+                    conditions: [{ prop: "kind", value: "video" }],
+                    next: [{ kind: "subtitle", ref: "subtitle" }],
+                },
+            ],
+            status: "active",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
         };
         server
             .mockEndpoint()
             .get("/automations/auto_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -314,56 +249,43 @@ describe("Automations", () => {
 
         const response = await client.automations.get("auto_abcdefgh1234");
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
+            id: "auto_abcdefgh1234",
+            name: "My Example Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: {
+                kind: "event",
+                event: "media.created",
             },
-            data: {
-                id: "auto_abcdefgh1234",
-                name: "My Example Automation",
-                description: "This workflow will run whenever new media is created.",
-                trigger: {
-                    kind: "event",
-                    event: "media.created",
+            workflow: [
+                {
+                    kind: "description",
+                    ref: "ref",
+                    next: [{}],
                 },
-                workflow: [
-                    {
-                        kind: "description",
-                    },
-                    {
-                        kind: "image",
-                        ref: "thumbnail",
-                    },
-                    {
-                        kind: "conditions",
-                        conditions: [
-                            {
-                                prop: "kind",
-                                value: "video",
-                            },
-                        ],
-                        next: [
-                            {
-                                kind: "subtitle",
-                                ref: "subtitle",
-                            },
-                        ],
-                    },
-                ],
-                status: "active",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
-            },
-            error: {
-                message: "message",
-            },
-            links: {
-                self: "https://api.ittybit.com/automations/auto_abcdefgh1234",
-                parent: "https://api.ittybit.com/automations",
-            },
+                {
+                    kind: "image",
+                    ref: "thumbnail",
+                    next: [{}],
+                },
+                {
+                    kind: "conditions",
+                    conditions: [
+                        {
+                            prop: "kind",
+                            value: "video",
+                        },
+                    ],
+                    next: [
+                        {
+                            kind: "subtitle",
+                            ref: "subtitle",
+                        },
+                    ],
+                },
+            ],
+            status: "active",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
         });
     });
 
@@ -371,20 +293,11 @@ describe("Automations", () => {
         const server = mockServerPool.createServer();
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: { message: "Automation auto_abcdefgh1234 deleted" },
-            links: { self: "self", parent: "https://api.ittybit.com/automations" },
-        };
+        const rawResponseBody = { message: "Automation auto_abcdefgh1234 deleted" };
         server
             .mockEndpoint()
             .delete("/automations/auto_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -392,20 +305,7 @@ describe("Automations", () => {
 
         const response = await client.automations.delete("auto_abcdefgh1234");
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                message: "Automation auto_abcdefgh1234 deleted",
-            },
-            links: {
-                self: "self",
-                parent: "https://api.ittybit.com/automations",
-            },
+            message: "Automation auto_abcdefgh1234 deleted",
         });
     });
 
@@ -423,40 +323,28 @@ describe("Automations", () => {
             status: "active",
         };
         const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                id: "auto_abcdefgh1234",
-                name: "My Updated Automation",
-                description: "This workflow will run whenever new media is created.",
-                trigger: { kind: "event", event: "media.created" },
-                workflow: [
-                    { kind: "nsfw" },
-                    { kind: "description" },
-                    { kind: "image", ref: "big_thumbnail" },
-                    {
-                        kind: "conditions",
-                        conditions: [{ prop: "kind", value: "video" }],
-                        next: [{ kind: "subtitle", ref: "subtitle" }],
-                    },
-                ],
-                status: "active",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-02T01:23:45Z",
-            },
-            links: {
-                self: "https://api.ittybit.com/automations/auto_abcdefgh1234",
-                parent: "https://api.ittybit.com/automations",
-            },
+            id: "auto_abcdefgh1234",
+            name: "My Updated Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: { kind: "event", event: "media.created" },
+            workflow: [
+                { kind: "nsfw", ref: "ref", next: [{}] },
+                { kind: "description", ref: "ref", next: [{}] },
+                { kind: "image", ref: "big_thumbnail", next: [{}] },
+                {
+                    kind: "conditions",
+                    conditions: [{ prop: "kind", value: "video" }],
+                    next: [{ kind: "subtitle", ref: "subtitle" }],
+                },
+            ],
+            status: "active",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-02T01:23:45Z",
         };
         server
             .mockEndpoint()
             .patch("/automations/auto_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -489,56 +377,48 @@ describe("Automations", () => {
             status: "active",
         });
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
+            id: "auto_abcdefgh1234",
+            name: "My Updated Automation",
+            description: "This workflow will run whenever new media is created.",
+            trigger: {
+                kind: "event",
+                event: "media.created",
             },
-            data: {
-                id: "auto_abcdefgh1234",
-                name: "My Updated Automation",
-                description: "This workflow will run whenever new media is created.",
-                trigger: {
-                    kind: "event",
-                    event: "media.created",
+            workflow: [
+                {
+                    kind: "nsfw",
+                    ref: "ref",
+                    next: [{}],
                 },
-                workflow: [
-                    {
-                        kind: "nsfw",
-                    },
-                    {
-                        kind: "description",
-                    },
-                    {
-                        kind: "image",
-                        ref: "big_thumbnail",
-                    },
-                    {
-                        kind: "conditions",
-                        conditions: [
-                            {
-                                prop: "kind",
-                                value: "video",
-                            },
-                        ],
-                        next: [
-                            {
-                                kind: "subtitle",
-                                ref: "subtitle",
-                            },
-                        ],
-                    },
-                ],
-                status: "active",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-02T01:23:45Z",
-            },
-            links: {
-                self: "https://api.ittybit.com/automations/auto_abcdefgh1234",
-                parent: "https://api.ittybit.com/automations",
-            },
+                {
+                    kind: "description",
+                    ref: "ref",
+                    next: [{}],
+                },
+                {
+                    kind: "image",
+                    ref: "big_thumbnail",
+                    next: [{}],
+                },
+                {
+                    kind: "conditions",
+                    conditions: [
+                        {
+                            prop: "kind",
+                            value: "video",
+                        },
+                    ],
+                    next: [
+                        {
+                            kind: "subtitle",
+                            ref: "subtitle",
+                        },
+                    ],
+                },
+            ],
+            status: "active",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-02T01:23:45Z",
         });
     });
 });

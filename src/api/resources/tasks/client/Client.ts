@@ -59,14 +59,14 @@ export class Tasks {
     public list(
         request: Ittybit.TasksListRequest = {},
         requestOptions?: Tasks.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.TasksListResponse> {
+    ): core.HttpResponsePromise<Ittybit.TaskListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Ittybit.TasksListRequest = {},
         requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.TasksListResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.TaskListResponse>> {
         const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
@@ -81,6 +81,7 @@ export class Tasks {
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -100,7 +101,7 @@ export class Tasks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.TasksListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.TaskListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -146,18 +147,19 @@ export class Tasks {
     public create(
         request?: unknown,
         requestOptions?: Tasks.RequestOptions,
-    ): core.HttpResponsePromise<Ittybit.TasksCreateResponse> {
+    ): core.HttpResponsePromise<Ittybit.TaskResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request?: unknown,
         requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.TasksCreateResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.TaskResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -180,7 +182,7 @@ export class Tasks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.TasksCreateResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.TaskResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -217,18 +219,19 @@ export class Tasks {
      * @example
      *     await client.tasks.get("task_abcdefgh1234")
      */
-    public get(id: string, requestOptions?: Tasks.RequestOptions): core.HttpResponsePromise<Ittybit.TasksGetResponse> {
+    public get(id: string, requestOptions?: Tasks.RequestOptions): core.HttpResponsePromise<Ittybit.TaskResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Ittybit.TasksGetResponse>> {
+    ): Promise<core.WithRawResponse<Ittybit.TaskResponse>> {
         var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
+                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -248,7 +251,7 @@ export class Tasks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Ittybit.TasksGetResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Ittybit.TaskResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -268,72 +271,6 @@ export class Tasks {
                 });
             case "timeout":
                 throw new errors.IttybitTimeoutError("Timeout exceeded when calling GET /tasks/{id}.");
-            case "unknown":
-                throw new errors.IttybitError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Retrieves available task kinds and their configuration options.
-     *
-     * @param {Tasks.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.tasks.getTaskConfig()
-     */
-    public getTaskConfig(requestOptions?: Tasks.RequestOptions): core.HttpResponsePromise<Record<string, unknown>> {
-        return core.HttpResponsePromise.fromPromise(this.__getTaskConfig(requestOptions));
-    }
-
-    private async __getTaskConfig(
-        requestOptions?: Tasks.RequestOptions,
-    ): Promise<core.WithRawResponse<Record<string, unknown>>> {
-        var _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                Authorization: await this._getAuthorizationHeader(),
-                ACCEPT_VERSION: requestOptions?.version,
-            }),
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.IttybitEnvironment.Default,
-                "tasks-config",
-            ),
-            method: "GET",
-            headers: _headers,
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Record<string, unknown>, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.IttybitError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.IttybitError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.IttybitTimeoutError("Timeout exceeded when calling GET /tasks-config.");
             case "unknown":
                 throw new errors.IttybitError({
                     message: _response.error.errorMessage,

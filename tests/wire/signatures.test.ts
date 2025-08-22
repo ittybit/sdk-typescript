@@ -11,28 +11,18 @@ describe("Signatures", () => {
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
         const rawRequestBody = { filename: "video.mp4", folder: "example", expiry: 1735689600, method: "put" };
         const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                domain: "you.ittybit.net",
-                filename: "video.mp4",
-                folder: "example",
-                expiry: 1735689600,
-                method: "put",
-                signature: "a1b2c3d4e5f6...",
-                url: "https://you.ittybit.net/example/video.mp4?expiry=1735689600&method=put&signature=a1b2c3d4e5f6...",
-            },
-            error: { message: "message" },
-            links: { self: "self", parent: "/signatures" },
+            domain: "you.ittybit.net",
+            filename: "video.mp4",
+            folder: "example",
+            expiry: 1735689600,
+            method: "put",
+            signature: "a1b2c3d4e5f6...",
+            url: "https://you.ittybit.net/example/video.mp4?expiry=1735689600&method=put&signature=a1b2c3d4e5f6...",
         };
         server
             .mockEndpoint()
             .post("/signatures")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -46,29 +36,13 @@ describe("Signatures", () => {
             method: "put",
         });
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                domain: "you.ittybit.net",
-                filename: "video.mp4",
-                folder: "example",
-                expiry: 1735689600,
-                method: "put",
-                signature: "a1b2c3d4e5f6...",
-                url: "https://you.ittybit.net/example/video.mp4?expiry=1735689600&method=put&signature=a1b2c3d4e5f6...",
-            },
-            error: {
-                message: "message",
-            },
-            links: {
-                self: "self",
-                parent: "/signatures",
-            },
+            domain: "you.ittybit.net",
+            filename: "video.mp4",
+            folder: "example",
+            expiry: 1735689600,
+            method: "put",
+            signature: "a1b2c3d4e5f6...",
+            url: "https://you.ittybit.net/example/video.mp4?expiry=1735689600&method=put&signature=a1b2c3d4e5f6...",
         });
     });
 });

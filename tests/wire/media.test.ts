@@ -10,242 +10,66 @@ describe("Media", () => {
         const server = mockServerPool.createServer();
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "list",
-                limit: 20,
-                total: 100,
-                page: 1,
-                pages: 5,
-            },
-            data: [
-                {
-                    id: "med_abcdefgh1234",
-                    object: "media",
-                    kind: "video",
-                    title: "My Video Example",
-                    alt: "An example video used to demonstrate the ittybit API",
-                    width: 1920,
-                    height: 1080,
-                    duration: 123.45,
-                    files: [
-                        {
-                            id: "file_abcdefgh1234",
-                            object: "source",
-                            kind: "video",
-                            type: "video/mp4",
-                            width: 1920,
-                            height: 1080,
-                            duration: 123.45,
-                            filesize: 12345678,
-                            ref: "original",
-                            folder: "example",
-                            filename: "video.mp4",
-                            url: "https://you.ittybit.net/example/video.mp4",
-                            created: "2025-01-01T01:23:45Z",
-                            updated: "2025-01-01T01:23:45Z",
-                            status: "waiting",
-                        },
-                        {
-                            id: "file_abcdefgh5678",
-                            object: "source",
-                            kind: "image",
-                            type: "image/png",
-                            width: 640,
-                            height: 360,
-                            filesize: 123456,
-                            ref: "thumbnail",
-                            folder: "example",
-                            filename: "image.png",
-                            url: "https://you.ittybit.net/example/image.png",
-                            created: "2025-01-01T01:23:46Z",
-                            updated: "2025-01-01T01:23:46Z",
-                            status: "waiting",
-                        },
-                    ],
-                    urls: {
-                        original: "https://you.ittybit.net/example/video.mp4",
-                        thumbnail: "https://you.ittybit.net/example/image.png",
-                    },
-                    background: "#2OBO75",
-                    metadata: { customKey: "your custom value" },
-                    created: "2025-01-01T01:23:45Z",
-                    updated: "2025-01-01T01:23:46Z",
-                },
-                {
-                    id: "id",
-                    object: "object",
-                    kind: "video",
-                    title: "title",
-                    alt: "alt",
-                    width: 1,
-                    height: 1,
-                    duration: 1.1,
-                    files: [
-                        {
-                            id: "id",
-                            object: "source",
-                            kind: "video",
-                            type: "type",
-                            filesize: 1,
-                            url: "url",
-                            created: "2024-01-15T09:30:00Z",
-                            updated: "2024-01-15T09:30:00Z",
-                            status: "waiting",
-                        },
-                    ],
-                    urls: { key: "value" },
-                    background: "background",
-                    metadata: { key: "value" },
-                    created: "2024-01-15T09:30:00Z",
-                    updated: "2024-01-15T09:30:00Z",
-                },
-            ],
-            links: {
-                self: "https://api.ittybit.com/media?page=1",
-                first: "https://api.ittybit.com/media?page=1",
-                next: "https://api.ittybit.com/media?page=2",
-                last: "https://api.ittybit.com/media?page=5",
-            },
-        };
-        server.mockEndpoint().get("/media").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.media.list();
-        expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "list",
-                limit: 20,
-                total: 100,
-                page: 1,
-                pages: 5,
-            },
-            data: [
-                {
-                    id: "med_abcdefgh1234",
-                    object: "media",
-                    kind: "video",
-                    title: "My Video Example",
-                    alt: "An example video used to demonstrate the ittybit API",
-                    width: 1920,
-                    height: 1080,
-                    duration: 123.45,
-                    files: [
-                        {
-                            id: "file_abcdefgh1234",
-                            object: "source",
-                            kind: "video",
-                            type: "video/mp4",
-                            width: 1920,
-                            height: 1080,
-                            duration: 123.45,
-                            filesize: 12345678,
-                            ref: "original",
-                            folder: "example",
-                            filename: "video.mp4",
-                            url: "https://you.ittybit.net/example/video.mp4",
-                            created: "2025-01-01T01:23:45Z",
-                            updated: "2025-01-01T01:23:45Z",
-                            status: "waiting",
-                        },
-                        {
-                            id: "file_abcdefgh5678",
-                            object: "source",
-                            kind: "image",
-                            type: "image/png",
-                            width: 640,
-                            height: 360,
-                            filesize: 123456,
-                            ref: "thumbnail",
-                            folder: "example",
-                            filename: "image.png",
-                            url: "https://you.ittybit.net/example/image.png",
-                            created: "2025-01-01T01:23:46Z",
-                            updated: "2025-01-01T01:23:46Z",
-                            status: "waiting",
-                        },
-                    ],
-                    urls: {
-                        original: "https://you.ittybit.net/example/video.mp4",
-                        thumbnail: "https://you.ittybit.net/example/image.png",
-                    },
-                    background: "#2OBO75",
-                    metadata: {
-                        customKey: "your custom value",
-                    },
-                    created: "2025-01-01T01:23:45Z",
-                    updated: "2025-01-01T01:23:46Z",
-                },
-                {
-                    id: "id",
-                    object: "object",
-                    kind: "video",
-                    title: "title",
-                    alt: "alt",
-                    width: 1,
-                    height: 1,
-                    duration: 1.1,
-                    files: [
-                        {
-                            id: "id",
-                            object: "source",
-                            kind: "video",
-                            type: "type",
-                            filesize: 1,
-                            url: "url",
-                            created: "2024-01-15T09:30:00Z",
-                            updated: "2024-01-15T09:30:00Z",
-                            status: "waiting",
-                        },
-                    ],
-                    urls: {
-                        key: "value",
-                    },
-                    background: "background",
-                    metadata: {
-                        key: "value",
-                    },
-                    created: "2024-01-15T09:30:00Z",
-                    updated: "2024-01-15T09:30:00Z",
-                },
-            ],
-            links: {
-                self: "https://api.ittybit.com/media?page=1",
-                first: "https://api.ittybit.com/media?page=1",
-                next: "https://api.ittybit.com/media?page=2",
-                last: "https://api.ittybit.com/media?page=5",
-            },
-        });
-    });
-
-    test("create", async () => {
-        const server = mockServerPool.createServer();
-        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            title: "My Video Example",
-            alt: "An example video used to demonstrate the ittybit API",
-            metadata: { customKey2: "a different custom value" },
-        };
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
+        const rawResponseBody = [
+            {
                 id: "med_abcdefgh1234",
                 object: "media",
+                kind: "video",
                 title: "My Video Example",
                 alt: "An example video used to demonstrate the ittybit API",
+                width: 1920,
+                height: 1080,
+                duration: 123.45,
+                files: [
+                    {
+                        id: "file_abcdefgh1234",
+                        object: "source",
+                        kind: "video",
+                        type: "video/mp4",
+                        width: 1920,
+                        height: 1080,
+                        duration: 123.45,
+                        filesize: 12345678,
+                        ref: "original",
+                        folder: "example",
+                        filename: "video.mp4",
+                        url: "https://you.ittybit.net/example/video.mp4",
+                        created: "2025-01-01T01:23:45Z",
+                        updated: "2025-01-01T01:23:45Z",
+                        status: "waiting",
+                    },
+                    {
+                        id: "file_abcdefgh5678",
+                        object: "source",
+                        kind: "image",
+                        type: "image/png",
+                        width: 640,
+                        height: 360,
+                        filesize: 123456,
+                        ref: "thumbnail",
+                        folder: "example",
+                        filename: "image.png",
+                        url: "https://you.ittybit.net/example/image.png",
+                        created: "2025-01-01T01:23:46Z",
+                        updated: "2025-01-01T01:23:46Z",
+                        status: "waiting",
+                    },
+                ],
+                urls: {
+                    original: "https://you.ittybit.net/example/video.mp4",
+                    thumbnail: "https://you.ittybit.net/example/image.png",
+                },
+                background: "#2OBO75",
+                metadata: { customKey: "your custom value" },
+                created: "2025-01-01T01:23:45Z",
+                updated: "2025-01-01T01:23:46Z",
+            },
+            {
+                id: "id",
+                object: "object",
+                kind: "video",
+                title: "title",
+                alt: "alt",
                 width: 1,
                 height: 1,
                 duration: 1.1,
@@ -263,41 +87,84 @@ describe("Media", () => {
                     },
                 ],
                 urls: { key: "value" },
-                metadata: { customKey: "your custom value" },
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
+                background: "background",
+                metadata: { key: "value" },
+                created: "2024-01-15T09:30:00Z",
+                updated: "2024-01-15T09:30:00Z",
             },
-            links: { self: "https://api.ittybit.com/media/med_abcdefgh1234", parent: "https://api.ittybit.com/media" },
-        };
+        ];
         server
             .mockEndpoint()
-            .post("/media")
-            .jsonBody(rawRequestBody)
+            .get("/media")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.media.create({
-            title: "My Video Example",
-            alt: "An example video used to demonstrate the ittybit API",
-            metadata: {
-                customKey2: "a different custom value",
-            },
-        });
-        expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
+        const response = await client.media.list();
+        expect(response).toEqual([
+            {
                 id: "med_abcdefgh1234",
                 object: "media",
+                kind: "video",
                 title: "My Video Example",
                 alt: "An example video used to demonstrate the ittybit API",
+                width: 1920,
+                height: 1080,
+                duration: 123.45,
+                files: [
+                    {
+                        id: "file_abcdefgh1234",
+                        object: "source",
+                        kind: "video",
+                        type: "video/mp4",
+                        width: 1920,
+                        height: 1080,
+                        duration: 123.45,
+                        filesize: 12345678,
+                        ref: "original",
+                        folder: "example",
+                        filename: "video.mp4",
+                        url: "https://you.ittybit.net/example/video.mp4",
+                        created: "2025-01-01T01:23:45Z",
+                        updated: "2025-01-01T01:23:45Z",
+                        status: "waiting",
+                    },
+                    {
+                        id: "file_abcdefgh5678",
+                        object: "source",
+                        kind: "image",
+                        type: "image/png",
+                        width: 640,
+                        height: 360,
+                        filesize: 123456,
+                        ref: "thumbnail",
+                        folder: "example",
+                        filename: "image.png",
+                        url: "https://you.ittybit.net/example/image.png",
+                        created: "2025-01-01T01:23:46Z",
+                        updated: "2025-01-01T01:23:46Z",
+                        status: "waiting",
+                    },
+                ],
+                urls: {
+                    original: "https://you.ittybit.net/example/video.mp4",
+                    thumbnail: "https://you.ittybit.net/example/image.png",
+                },
+                background: "#2OBO75",
+                metadata: {
+                    customKey: "your custom value",
+                },
+                created: "2025-01-01T01:23:45Z",
+                updated: "2025-01-01T01:23:46Z",
+            },
+            {
+                id: "id",
+                object: "object",
+                kind: "video",
+                title: "title",
+                alt: "alt",
                 width: 1,
                 height: 1,
                 duration: 1.1,
@@ -317,16 +184,130 @@ describe("Media", () => {
                 urls: {
                     key: "value",
                 },
+                background: "background",
                 metadata: {
-                    customKey: "your custom value",
+                    key: "value",
                 },
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
+                created: "2024-01-15T09:30:00Z",
+                updated: "2024-01-15T09:30:00Z",
             },
-            links: {
-                self: "https://api.ittybit.com/media/med_abcdefgh1234",
-                parent: "https://api.ittybit.com/media",
+        ]);
+    });
+
+    test("create", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            title: "My Video Example",
+            alt: "An example video used to demonstrate the ittybit API",
+            metadata: { customKey: "your custom value" },
+        };
+        const rawResponseBody = {
+            id: "med_abcdefgh1234",
+            object: "media",
+            title: "My Video Example",
+            alt: "An example video used to demonstrate the ittybit API",
+            width: 1,
+            height: 1,
+            duration: 1.1,
+            files: [
+                {
+                    id: "id",
+                    object: "source",
+                    kind: "video",
+                    type: "type",
+                    codec: "codec",
+                    container: "container",
+                    width: 1,
+                    height: 1,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 1,
+                    bitrate: 1,
+                    ref: "ref",
+                    folder: "folder",
+                    filename: "filename",
+                    url: "url",
+                    metadata: { key: "value" },
+                    original: true,
+                    created: "2024-01-15T09:30:00Z",
+                    updated: "2024-01-15T09:30:00Z",
+                    status: "waiting",
+                },
+            ],
+            urls: { key: "value" },
+            metadata: { customKey: "your custom value" },
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
+        };
+        server
+            .mockEndpoint()
+            .post("/media")
+            .header("Accept-Version", "2025-08-20")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.media.create({
+            title: "My Video Example",
+            alt: "An example video used to demonstrate the ittybit API",
+            metadata: {
+                customKey: "your custom value",
             },
+        });
+        expect(response).toEqual({
+            id: "med_abcdefgh1234",
+            object: "media",
+            title: "My Video Example",
+            alt: "An example video used to demonstrate the ittybit API",
+            width: 1,
+            height: 1,
+            duration: 1.1,
+            files: [
+                {
+                    id: "id",
+                    object: "source",
+                    kind: "video",
+                    type: "type",
+                    codec: "codec",
+                    container: "container",
+                    width: 1,
+                    height: 1,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 1,
+                    bitrate: 1,
+                    ref: "ref",
+                    folder: "folder",
+                    filename: "filename",
+                    url: "url",
+                    metadata: {
+                        key: "value",
+                    },
+                    original: true,
+                    created: "2024-01-15T09:30:00Z",
+                    updated: "2024-01-15T09:30:00Z",
+                    status: "waiting",
+                },
+            ],
+            urls: {
+                key: "value",
+            },
+            metadata: {
+                customKey: "your custom value",
+            },
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
         });
     });
 
@@ -335,71 +316,83 @@ describe("Media", () => {
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                id: "med_abcdefgh1234",
-                object: "media",
-                kind: "video",
-                title: "My Video Example",
-                alt: "An example video used to demonstrate the ittybit API",
-                width: 1920,
-                height: 1080,
-                duration: 123.45,
-                files: [
-                    {
-                        id: "file_abcdefgh1234",
-                        object: "source",
-                        kind: "video",
-                        type: 'video/mp4; codecs="avc1.6431, mp4a.40.2"',
-                        width: 1920,
-                        height: 1080,
-                        duration: 123.45,
-                        filesize: 12345678,
-                        ref: "original",
-                        folder: "example",
-                        filename: "video.mp4",
-                        url: "https://you.ittybit.net/example/video.mp4",
-                        created: "2025-01-01T01:23:45Z",
-                        updated: "2025-01-01T01:23:45Z",
-                        status: "waiting",
-                    },
-                    {
-                        id: "file_abcdefgh5678",
-                        object: "source",
-                        kind: "image",
-                        type: "image/png",
-                        width: 640,
-                        height: 360,
-                        filesize: 123456,
-                        ref: "thumbnail",
-                        folder: "example",
-                        filename: "image.png",
-                        url: "https://you.ittybit.net/example/image.png",
-                        created: "2025-01-01T01:23:46Z",
-                        updated: "2025-01-01T01:23:46Z",
-                        status: "waiting",
-                    },
-                ],
-                urls: {
-                    original: "https://you.ittybit.net/example/video.mp4",
-                    thumbnail: "https://you.ittybit.net/example/image.png",
+            id: "med_abcdefgh1234",
+            object: "media",
+            kind: "video",
+            title: "My Video Example",
+            alt: "An example video used to demonstrate the ittybit API",
+            width: 1920,
+            height: 1080,
+            duration: 123.45,
+            files: [
+                {
+                    id: "file_abcdefgh1234",
+                    object: "source",
+                    kind: "video",
+                    type: 'video/mp4; codecs="avc1.6431, mp4a.40.2"',
+                    codec: "codec",
+                    container: "container",
+                    width: 1920,
+                    height: 1080,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 123.45,
+                    fps: 1.1,
+                    filesize: 12345678,
+                    bitrate: 1,
+                    ref: "original",
+                    folder: "example",
+                    filename: "video.mp4",
+                    url: "https://you.ittybit.net/example/video.mp4",
+                    metadata: { key: "value" },
+                    original: true,
+                    created: "2025-01-01T01:23:45Z",
+                    updated: "2025-01-01T01:23:45Z",
+                    status: "waiting",
                 },
-                background: "#2OBO75",
-                metadata: { customKey: "your custom value" },
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:46Z",
+                {
+                    id: "file_abcdefgh5678",
+                    object: "source",
+                    kind: "image",
+                    type: "image/png",
+                    codec: "codec",
+                    container: "container",
+                    width: 640,
+                    height: 360,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 123456,
+                    bitrate: 1,
+                    ref: "thumbnail",
+                    folder: "example",
+                    filename: "image.png",
+                    url: "https://you.ittybit.net/example/image.png",
+                    metadata: { key: "value" },
+                    original: true,
+                    created: "2025-01-01T01:23:46Z",
+                    updated: "2025-01-01T01:23:46Z",
+                    status: "waiting",
+                },
+            ],
+            urls: {
+                original: "https://you.ittybit.net/example/video.mp4",
+                thumbnail: "https://you.ittybit.net/example/image.png",
             },
-            links: { self: "https://api.ittybit.com/media/med_abcdefgh1234", parent: "https://api.ittybit.com/media" },
+            background: "#2OBO75",
+            metadata: { customKey: "your custom value" },
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:46Z",
         };
         server
             .mockEndpoint()
             .get("/media/med_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -407,72 +400,84 @@ describe("Media", () => {
 
         const response = await client.media.get("med_abcdefgh1234");
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                id: "med_abcdefgh1234",
-                object: "media",
-                kind: "video",
-                title: "My Video Example",
-                alt: "An example video used to demonstrate the ittybit API",
-                width: 1920,
-                height: 1080,
-                duration: 123.45,
-                files: [
-                    {
-                        id: "file_abcdefgh1234",
-                        object: "source",
-                        kind: "video",
-                        type: 'video/mp4; codecs="avc1.6431, mp4a.40.2"',
-                        width: 1920,
-                        height: 1080,
-                        duration: 123.45,
-                        filesize: 12345678,
-                        ref: "original",
-                        folder: "example",
-                        filename: "video.mp4",
-                        url: "https://you.ittybit.net/example/video.mp4",
-                        created: "2025-01-01T01:23:45Z",
-                        updated: "2025-01-01T01:23:45Z",
-                        status: "waiting",
+            id: "med_abcdefgh1234",
+            object: "media",
+            kind: "video",
+            title: "My Video Example",
+            alt: "An example video used to demonstrate the ittybit API",
+            width: 1920,
+            height: 1080,
+            duration: 123.45,
+            files: [
+                {
+                    id: "file_abcdefgh1234",
+                    object: "source",
+                    kind: "video",
+                    type: 'video/mp4; codecs="avc1.6431, mp4a.40.2"',
+                    codec: "codec",
+                    container: "container",
+                    width: 1920,
+                    height: 1080,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 123.45,
+                    fps: 1.1,
+                    filesize: 12345678,
+                    bitrate: 1,
+                    ref: "original",
+                    folder: "example",
+                    filename: "video.mp4",
+                    url: "https://you.ittybit.net/example/video.mp4",
+                    metadata: {
+                        key: "value",
                     },
-                    {
-                        id: "file_abcdefgh5678",
-                        object: "source",
-                        kind: "image",
-                        type: "image/png",
-                        width: 640,
-                        height: 360,
-                        filesize: 123456,
-                        ref: "thumbnail",
-                        folder: "example",
-                        filename: "image.png",
-                        url: "https://you.ittybit.net/example/image.png",
-                        created: "2025-01-01T01:23:46Z",
-                        updated: "2025-01-01T01:23:46Z",
-                        status: "waiting",
+                    original: true,
+                    created: "2025-01-01T01:23:45Z",
+                    updated: "2025-01-01T01:23:45Z",
+                    status: "waiting",
+                },
+                {
+                    id: "file_abcdefgh5678",
+                    object: "source",
+                    kind: "image",
+                    type: "image/png",
+                    codec: "codec",
+                    container: "container",
+                    width: 640,
+                    height: 360,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 123456,
+                    bitrate: 1,
+                    ref: "thumbnail",
+                    folder: "example",
+                    filename: "image.png",
+                    url: "https://you.ittybit.net/example/image.png",
+                    metadata: {
+                        key: "value",
                     },
-                ],
-                urls: {
-                    original: "https://you.ittybit.net/example/video.mp4",
-                    thumbnail: "https://you.ittybit.net/example/image.png",
+                    original: true,
+                    created: "2025-01-01T01:23:46Z",
+                    updated: "2025-01-01T01:23:46Z",
+                    status: "waiting",
                 },
-                background: "#2OBO75",
-                metadata: {
-                    customKey: "your custom value",
-                },
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:46Z",
+            ],
+            urls: {
+                original: "https://you.ittybit.net/example/video.mp4",
+                thumbnail: "https://you.ittybit.net/example/image.png",
             },
-            links: {
-                self: "https://api.ittybit.com/media/med_abcdefgh1234",
-                parent: "https://api.ittybit.com/media",
+            background: "#2OBO75",
+            metadata: {
+                customKey: "your custom value",
             },
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:46Z",
         });
     });
 
@@ -480,20 +485,11 @@ describe("Media", () => {
         const server = mockServerPool.createServer();
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: { message: "med_abcdefgh1234 deleted" },
-            links: { self: "self", parent: "https://api.ittybit.com/media" },
-        };
+        const rawResponseBody = { message: "med_abcdefgh1234 deleted" };
         server
             .mockEndpoint()
             .delete("/media/med_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -501,20 +497,7 @@ describe("Media", () => {
 
         const response = await client.media.delete("med_abcdefgh1234");
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                message: "med_abcdefgh1234 deleted",
-            },
-            links: {
-                self: "self",
-                parent: "https://api.ittybit.com/media",
-            },
+            message: "med_abcdefgh1234 deleted",
         });
     });
 
@@ -524,63 +507,86 @@ describe("Media", () => {
         const rawRequestBody = {
             title: "Updated Video Example",
             alt: "An updated example video used to demonstrate the ittybit API",
-            metadata: { customKey2: "a different custom value" },
+            metadata: { customKey: "a different custom value" },
         };
         const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                id: "med_abcdefgh1234",
-                object: "media",
-                kind: "video",
-                title: "Updated Video Example",
-                alt: "An updated example video used to demonstrate the ittybit API",
-                width: 1920,
-                height: 1080,
-                duration: 123.45,
-                files: [
-                    {
-                        id: "file_abcdefgh1234",
-                        object: "source",
-                        kind: "video",
-                        type: "type",
-                        filesize: 1,
-                        url: "url",
-                        created: "2024-01-15T09:30:00Z",
-                        updated: "2024-01-15T09:30:00Z",
-                        status: "waiting",
-                    },
-                    {
-                        id: "file_abcdefgh5678",
-                        object: "source",
-                        kind: "video",
-                        type: "type",
-                        filesize: 1,
-                        url: "url",
-                        created: "2024-01-15T09:30:00Z",
-                        updated: "2024-01-15T09:30:00Z",
-                        status: "waiting",
-                    },
-                ],
-                urls: {
-                    original: "https://you.ittybit.net/example/video.mp4",
-                    thumbnail: "https://you.ittybit.net/example/image.png",
+            id: "med_abcdefgh1234",
+            object: "media",
+            kind: "video",
+            title: "Updated Video Example",
+            alt: "An updated example video used to demonstrate the ittybit API",
+            width: 1920,
+            height: 1080,
+            duration: 123.45,
+            files: [
+                {
+                    id: "file_abcdefgh1234",
+                    object: "source",
+                    kind: "video",
+                    type: "type",
+                    codec: "codec",
+                    container: "container",
+                    width: 1,
+                    height: 1,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 1,
+                    bitrate: 1,
+                    ref: "ref",
+                    folder: "folder",
+                    filename: "filename",
+                    url: "url",
+                    metadata: { key: "value" },
+                    original: true,
+                    created: "2024-01-15T09:30:00Z",
+                    updated: "2024-01-15T09:30:00Z",
+                    status: "waiting",
                 },
-                background: "#2OBO75",
-                metadata: { customKey: "your custom value" },
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:46Z",
+                {
+                    id: "file_abcdefgh5678",
+                    object: "source",
+                    kind: "video",
+                    type: "type",
+                    codec: "codec",
+                    container: "container",
+                    width: 1,
+                    height: 1,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 1,
+                    bitrate: 1,
+                    ref: "ref",
+                    folder: "folder",
+                    filename: "filename",
+                    url: "url",
+                    metadata: { key: "value" },
+                    original: true,
+                    created: "2024-01-15T09:30:00Z",
+                    updated: "2024-01-15T09:30:00Z",
+                    status: "waiting",
+                },
+            ],
+            urls: {
+                original: "https://you.ittybit.net/example/video.mp4",
+                thumbnail: "https://you.ittybit.net/example/image.png",
             },
-            links: { self: "https://api.ittybit.com/media/med_abcdefgh1234", parent: "https://api.ittybit.com/media" },
+            background: "#2OBO75",
+            metadata: { customKey: "a different custom value" },
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:46Z",
         };
         server
             .mockEndpoint()
             .patch("/media/med_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -591,65 +597,88 @@ describe("Media", () => {
             title: "Updated Video Example",
             alt: "An updated example video used to demonstrate the ittybit API",
             metadata: {
-                customKey2: "a different custom value",
+                customKey: "a different custom value",
             },
         });
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
-                id: "med_abcdefgh1234",
-                object: "media",
-                kind: "video",
-                title: "Updated Video Example",
-                alt: "An updated example video used to demonstrate the ittybit API",
-                width: 1920,
-                height: 1080,
-                duration: 123.45,
-                files: [
-                    {
-                        id: "file_abcdefgh1234",
-                        object: "source",
-                        kind: "video",
-                        type: "type",
-                        filesize: 1,
-                        url: "url",
-                        created: "2024-01-15T09:30:00Z",
-                        updated: "2024-01-15T09:30:00Z",
-                        status: "waiting",
+            id: "med_abcdefgh1234",
+            object: "media",
+            kind: "video",
+            title: "Updated Video Example",
+            alt: "An updated example video used to demonstrate the ittybit API",
+            width: 1920,
+            height: 1080,
+            duration: 123.45,
+            files: [
+                {
+                    id: "file_abcdefgh1234",
+                    object: "source",
+                    kind: "video",
+                    type: "type",
+                    codec: "codec",
+                    container: "container",
+                    width: 1,
+                    height: 1,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 1,
+                    bitrate: 1,
+                    ref: "ref",
+                    folder: "folder",
+                    filename: "filename",
+                    url: "url",
+                    metadata: {
+                        key: "value",
                     },
-                    {
-                        id: "file_abcdefgh5678",
-                        object: "source",
-                        kind: "video",
-                        type: "type",
-                        filesize: 1,
-                        url: "url",
-                        created: "2024-01-15T09:30:00Z",
-                        updated: "2024-01-15T09:30:00Z",
-                        status: "waiting",
+                    original: true,
+                    created: "2024-01-15T09:30:00Z",
+                    updated: "2024-01-15T09:30:00Z",
+                    status: "waiting",
+                },
+                {
+                    id: "file_abcdefgh5678",
+                    object: "source",
+                    kind: "video",
+                    type: "type",
+                    codec: "codec",
+                    container: "container",
+                    width: 1,
+                    height: 1,
+                    orientation: "landscape",
+                    rotation: 1.1,
+                    transparency: true,
+                    frames: 1,
+                    duration: 1.1,
+                    fps: 1.1,
+                    filesize: 1,
+                    bitrate: 1,
+                    ref: "ref",
+                    folder: "folder",
+                    filename: "filename",
+                    url: "url",
+                    metadata: {
+                        key: "value",
                     },
-                ],
-                urls: {
-                    original: "https://you.ittybit.net/example/video.mp4",
-                    thumbnail: "https://you.ittybit.net/example/image.png",
+                    original: true,
+                    created: "2024-01-15T09:30:00Z",
+                    updated: "2024-01-15T09:30:00Z",
+                    status: "waiting",
                 },
-                background: "#2OBO75",
-                metadata: {
-                    customKey: "your custom value",
-                },
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:46Z",
+            ],
+            urls: {
+                original: "https://you.ittybit.net/example/video.mp4",
+                thumbnail: "https://you.ittybit.net/example/image.png",
             },
-            links: {
-                self: "https://api.ittybit.com/media/med_abcdefgh1234",
-                parent: "https://api.ittybit.com/media",
+            background: "#2OBO75",
+            metadata: {
+                customKey: "a different custom value",
             },
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:46Z",
         });
     });
 });

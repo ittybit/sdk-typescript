@@ -10,184 +10,8 @@ describe("Tasks", () => {
         const server = mockServerPool.createServer();
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "list",
-                limit: 20,
-                total: 100,
-                page: 1,
-                pages: 5,
-            },
-            data: [
-                {
-                    id: "task_abcdefgh1234",
-                    object: "task",
-                    kind: "image",
-                    input: {
-                        id: "file_abcdefgh1234",
-                        object: "source",
-                        kind: "video",
-                        type: "video/mp4",
-                        width: 1920,
-                        height: 1080,
-                        duration: 123.45,
-                        filesize: 12345678,
-                        url: "https://you.ittybit.net/file_abcdefgh1234",
-                        ref: "original",
-                    },
-                    options: { width: 320, format: "png", ref: "thumbnail" },
-                    output: {
-                        id: "file_abcdefgh5678",
-                        object: "source",
-                        kind: "image",
-                        type: "image/png",
-                        width: 320,
-                        height: 180,
-                        filesize: 12345,
-                        url: "https://you.ittybit.net/file_abcdefgh5678",
-                        ref: "thumbnail",
-                    },
-                    status: "completed",
-                    progress: 1,
-                    error: "error",
-                    created_by: "created_by",
-                    created: "2025-01-01T01:23:45Z",
-                    updated: "2025-01-01T01:23:46Z",
-                    parent_id: "parent_id",
-                },
-                {
-                    id: "id",
-                    object: "object",
-                    kind: "ingest",
-                    input: { key: "value" },
-                    options: { key: "value" },
-                    output: { key: "value" },
-                    status: "pending",
-                    progress: 1,
-                    error: "error",
-                    created_by: "created_by",
-                    created: "2024-01-15T09:30:00Z",
-                    updated: "2024-01-15T09:30:00Z",
-                    parent_id: "parent_id",
-                },
-            ],
-            links: {
-                self: "https://api.ittybit.com/tasks?page=1",
-                first: "https://api.ittybit.com/tasks?page=1",
-                next: "https://api.ittybit.com/tasks?page=2",
-                last: "https://api.ittybit.com/tasks?page=5",
-            },
-        };
-        server.mockEndpoint().get("/tasks").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.tasks.list();
-        expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "list",
-                limit: 20,
-                total: 100,
-                page: 1,
-                pages: 5,
-            },
-            data: [
-                {
-                    id: "task_abcdefgh1234",
-                    object: "task",
-                    kind: "image",
-                    input: {
-                        id: "file_abcdefgh1234",
-                        object: "source",
-                        kind: "video",
-                        type: "video/mp4",
-                        width: 1920,
-                        height: 1080,
-                        duration: 123.45,
-                        filesize: 12345678,
-                        url: "https://you.ittybit.net/file_abcdefgh1234",
-                        ref: "original",
-                    },
-                    options: {
-                        width: 320,
-                        format: "png",
-                        ref: "thumbnail",
-                    },
-                    output: {
-                        id: "file_abcdefgh5678",
-                        object: "source",
-                        kind: "image",
-                        type: "image/png",
-                        width: 320,
-                        height: 180,
-                        filesize: 12345,
-                        url: "https://you.ittybit.net/file_abcdefgh5678",
-                        ref: "thumbnail",
-                    },
-                    status: "completed",
-                    progress: 1,
-                    error: "error",
-                    created_by: "created_by",
-                    created: "2025-01-01T01:23:45Z",
-                    updated: "2025-01-01T01:23:46Z",
-                    parent_id: "parent_id",
-                },
-                {
-                    id: "id",
-                    object: "object",
-                    kind: "ingest",
-                    input: {
-                        key: "value",
-                    },
-                    options: {
-                        key: "value",
-                    },
-                    output: {
-                        key: "value",
-                    },
-                    status: "pending",
-                    progress: 1,
-                    error: "error",
-                    created_by: "created_by",
-                    created: "2024-01-15T09:30:00Z",
-                    updated: "2024-01-15T09:30:00Z",
-                    parent_id: "parent_id",
-                },
-            ],
-            links: {
-                self: "https://api.ittybit.com/tasks?page=1",
-                first: "https://api.ittybit.com/tasks?page=1",
-                next: "https://api.ittybit.com/tasks?page=2",
-                last: "https://api.ittybit.com/tasks?page=5",
-            },
-        });
-    });
-
-    test("create", async () => {
-        const server = mockServerPool.createServer();
-        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            file_id: "file_abcdefgh1234",
-            kind: "image",
-            width: 320,
-            format: "png",
-            ref: "thumbnail",
-        };
-        const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
-            },
-            data: {
+        const rawResponseBody = [
+            {
                 id: "task_abcdefgh1234",
                 object: "task",
                 kind: "image",
@@ -204,22 +28,197 @@ describe("Tasks", () => {
                     ref: "original",
                 },
                 options: { width: 320, format: "png", ref: "thumbnail" },
-                status: "pending",
+                output: {
+                    id: "file_abcdefgh5678",
+                    object: "source",
+                    kind: "image",
+                    type: "image/png",
+                    width: 320,
+                    height: 180,
+                    filesize: 12345,
+                    url: "https://you.ittybit.net/file_abcdefgh5678",
+                    ref: "thumbnail",
+                },
+                status: "completed",
                 progress: 1,
                 error: "error",
                 created_by: "created_by",
                 created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
+                updated: "2025-01-01T01:23:46Z",
                 parent_id: "parent_id",
                 workflow: [{ key: "value" }],
                 results: { passed: [{ key: "value" }], failed: [{ key: "value" }], continue: true },
             },
-            error: { message: "message" },
-            links: { self: "https://api.ittybit.com/tasks/task_abcdefgh1234", parent: "https://api.ittybit.com/tasks" },
+            {
+                id: "id",
+                object: "object",
+                kind: "ingest",
+                input: { key: "value" },
+                options: { key: "value" },
+                output: { key: "value" },
+                status: "pending",
+                progress: 1,
+                error: "error",
+                created_by: "created_by",
+                created: "2024-01-15T09:30:00Z",
+                updated: "2024-01-15T09:30:00Z",
+                parent_id: "parent_id",
+                workflow: [{ key: "value" }],
+                results: { passed: [{ key: "value" }], failed: [{ key: "value" }], continue: true },
+            },
+        ];
+        server
+            .mockEndpoint()
+            .get("/tasks")
+            .header("Accept-Version", "2025-08-20")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tasks.list();
+        expect(response).toEqual([
+            {
+                id: "task_abcdefgh1234",
+                object: "task",
+                kind: "image",
+                input: {
+                    id: "file_abcdefgh1234",
+                    object: "source",
+                    kind: "video",
+                    type: "video/mp4",
+                    width: 1920,
+                    height: 1080,
+                    duration: 123.45,
+                    filesize: 12345678,
+                    url: "https://you.ittybit.net/file_abcdefgh1234",
+                    ref: "original",
+                },
+                options: {
+                    width: 320,
+                    format: "png",
+                    ref: "thumbnail",
+                },
+                output: {
+                    id: "file_abcdefgh5678",
+                    object: "source",
+                    kind: "image",
+                    type: "image/png",
+                    width: 320,
+                    height: 180,
+                    filesize: 12345,
+                    url: "https://you.ittybit.net/file_abcdefgh5678",
+                    ref: "thumbnail",
+                },
+                status: "completed",
+                progress: 1,
+                error: "error",
+                created_by: "created_by",
+                created: "2025-01-01T01:23:45Z",
+                updated: "2025-01-01T01:23:46Z",
+                parent_id: "parent_id",
+                workflow: [
+                    {
+                        key: "value",
+                    },
+                ],
+                results: {
+                    passed: [
+                        {
+                            key: "value",
+                        },
+                    ],
+                    failed: [
+                        {
+                            key: "value",
+                        },
+                    ],
+                    continue: true,
+                },
+            },
+            {
+                id: "id",
+                object: "object",
+                kind: "ingest",
+                input: {
+                    key: "value",
+                },
+                options: {
+                    key: "value",
+                },
+                output: {
+                    key: "value",
+                },
+                status: "pending",
+                progress: 1,
+                error: "error",
+                created_by: "created_by",
+                created: "2024-01-15T09:30:00Z",
+                updated: "2024-01-15T09:30:00Z",
+                parent_id: "parent_id",
+                workflow: [
+                    {
+                        key: "value",
+                    },
+                ],
+                results: {
+                    passed: [
+                        {
+                            key: "value",
+                        },
+                    ],
+                    failed: [
+                        {
+                            key: "value",
+                        },
+                    ],
+                    continue: true,
+                },
+            },
+        ]);
+    });
+
+    test("create", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            file_id: "file_abcdefgh1234",
+            kind: "image",
+            width: 320,
+            format: "png",
+            ref: "thumbnail",
+        };
+        const rawResponseBody = {
+            id: "task_abcdefgh1234",
+            object: "task",
+            kind: "image",
+            input: {
+                id: "file_abcdefgh1234",
+                object: "source",
+                kind: "video",
+                type: "video/mp4",
+                width: 1920,
+                height: 1080,
+                duration: 123.45,
+                filesize: 12345678,
+                url: "https://you.ittybit.net/file_abcdefgh1234",
+                ref: "original",
+            },
+            options: { width: 320, format: "png", ref: "thumbnail" },
+            status: "pending",
+            progress: 1,
+            error: "error",
+            created_by: "created_by",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
+            parent_id: "parent_id",
+            workflow: [{ key: "value" }],
+            results: { passed: [{ key: "value" }], failed: [{ key: "value" }], continue: true },
         };
         server
             .mockEndpoint()
             .post("/tasks")
+            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -234,66 +233,50 @@ describe("Tasks", () => {
             ref: "thumbnail",
         });
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
+            id: "task_abcdefgh1234",
+            object: "task",
+            kind: "image",
+            input: {
+                id: "file_abcdefgh1234",
+                object: "source",
+                kind: "video",
+                type: "video/mp4",
+                width: 1920,
+                height: 1080,
+                duration: 123.45,
+                filesize: 12345678,
+                url: "https://you.ittybit.net/file_abcdefgh1234",
+                ref: "original",
             },
-            data: {
-                id: "task_abcdefgh1234",
-                object: "task",
-                kind: "image",
-                input: {
-                    id: "file_abcdefgh1234",
-                    object: "source",
-                    kind: "video",
-                    type: "video/mp4",
-                    width: 1920,
-                    height: 1080,
-                    duration: 123.45,
-                    filesize: 12345678,
-                    url: "https://you.ittybit.net/file_abcdefgh1234",
-                    ref: "original",
+            options: {
+                width: 320,
+                format: "png",
+                ref: "thumbnail",
+            },
+            status: "pending",
+            progress: 1,
+            error: "error",
+            created_by: "created_by",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:45Z",
+            parent_id: "parent_id",
+            workflow: [
+                {
+                    key: "value",
                 },
-                options: {
-                    width: 320,
-                    format: "png",
-                    ref: "thumbnail",
-                },
-                status: "pending",
-                progress: 1,
-                error: "error",
-                created_by: "created_by",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:45Z",
-                parent_id: "parent_id",
-                workflow: [
+            ],
+            results: {
+                passed: [
                     {
                         key: "value",
                     },
                 ],
-                results: {
-                    passed: [
-                        {
-                            key: "value",
-                        },
-                    ],
-                    failed: [
-                        {
-                            key: "value",
-                        },
-                    ],
-                    continue: true,
-                },
-            },
-            error: {
-                message: "message",
-            },
-            links: {
-                self: "https://api.ittybit.com/tasks/task_abcdefgh1234",
-                parent: "https://api.ittybit.com/tasks",
+                failed: [
+                    {
+                        key: "value",
+                    },
+                ],
+                continue: true,
             },
         });
     });
@@ -303,57 +286,47 @@ describe("Tasks", () => {
         const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
+            id: "task_abcdefgh1234",
+            object: "task",
+            kind: "image",
+            input: {
+                id: "file_abcdefgh1234",
+                object: "source",
+                kind: "video",
+                type: "video/mp4",
+                width: 1920,
+                height: 1080,
+                duration: 123.45,
+                filesize: 12345678,
+                url: "https://you.ittybit.net/file_abcdefgh1234",
+                ref: "original",
             },
-            data: {
-                id: "task_abcdefgh1234",
-                object: "task",
+            options: { width: 320, format: "png", ref: "thumbnail" },
+            output: {
+                id: "file_abcdefgh5678",
+                object: "source",
                 kind: "image",
-                input: {
-                    id: "file_abcdefgh1234",
-                    object: "source",
-                    kind: "video",
-                    type: "video/mp4",
-                    width: 1920,
-                    height: 1080,
-                    duration: 123.45,
-                    filesize: 12345678,
-                    url: "https://you.ittybit.net/file_abcdefgh1234",
-                    ref: "original",
-                },
-                options: { width: 320, format: "png", ref: "thumbnail" },
-                output: {
-                    id: "file_abcdefgh5678",
-                    object: "source",
-                    kind: "image",
-                    type: "image/png",
-                    width: 320,
-                    height: 180,
-                    filesize: 12345,
-                    url: "https://you.ittybit.net/file_abcdefgh5678",
-                    ref: "thumbnail",
-                },
-                status: "completed",
-                progress: 1,
-                error: "error",
-                created_by: "created_by",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:46Z",
-                parent_id: "parent_id",
-                workflow: [{ key: "value" }],
-                results: { passed: [{ key: "value" }], failed: [{ key: "value" }], continue: true },
+                type: "image/png",
+                width: 320,
+                height: 180,
+                filesize: 12345,
+                url: "https://you.ittybit.net/file_abcdefgh5678",
+                ref: "thumbnail",
             },
-            error: { message: "message" },
-            links: { self: "https://api.ittybit.com/tasks/task_abcdefgh1234", parent: "https://api.ittybit.com/tasks" },
+            status: "completed",
+            progress: 1,
+            error: "error",
+            created_by: "created_by",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:46Z",
+            parent_id: "parent_id",
+            workflow: [{ key: "value" }],
+            results: { passed: [{ key: "value" }], failed: [{ key: "value" }], continue: true },
         };
         server
             .mockEndpoint()
             .get("/tasks/task_abcdefgh1234")
+            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -361,94 +334,62 @@ describe("Tasks", () => {
 
         const response = await client.tasks.get("task_abcdefgh1234");
         expect(response).toEqual({
-            meta: {
-                request_id: "req_abcdefghij1234567890",
-                org_id: "org_abcdefgh1234",
-                project_id: "prj_abcdefgh1234",
-                version: "2025-01-01",
-                type: "object",
+            id: "task_abcdefgh1234",
+            object: "task",
+            kind: "image",
+            input: {
+                id: "file_abcdefgh1234",
+                object: "source",
+                kind: "video",
+                type: "video/mp4",
+                width: 1920,
+                height: 1080,
+                duration: 123.45,
+                filesize: 12345678,
+                url: "https://you.ittybit.net/file_abcdefgh1234",
+                ref: "original",
             },
-            data: {
-                id: "task_abcdefgh1234",
-                object: "task",
+            options: {
+                width: 320,
+                format: "png",
+                ref: "thumbnail",
+            },
+            output: {
+                id: "file_abcdefgh5678",
+                object: "source",
                 kind: "image",
-                input: {
-                    id: "file_abcdefgh1234",
-                    object: "source",
-                    kind: "video",
-                    type: "video/mp4",
-                    width: 1920,
-                    height: 1080,
-                    duration: 123.45,
-                    filesize: 12345678,
-                    url: "https://you.ittybit.net/file_abcdefgh1234",
-                    ref: "original",
+                type: "image/png",
+                width: 320,
+                height: 180,
+                filesize: 12345,
+                url: "https://you.ittybit.net/file_abcdefgh5678",
+                ref: "thumbnail",
+            },
+            status: "completed",
+            progress: 1,
+            error: "error",
+            created_by: "created_by",
+            created: "2025-01-01T01:23:45Z",
+            updated: "2025-01-01T01:23:46Z",
+            parent_id: "parent_id",
+            workflow: [
+                {
+                    key: "value",
                 },
-                options: {
-                    width: 320,
-                    format: "png",
-                    ref: "thumbnail",
-                },
-                output: {
-                    id: "file_abcdefgh5678",
-                    object: "source",
-                    kind: "image",
-                    type: "image/png",
-                    width: 320,
-                    height: 180,
-                    filesize: 12345,
-                    url: "https://you.ittybit.net/file_abcdefgh5678",
-                    ref: "thumbnail",
-                },
-                status: "completed",
-                progress: 1,
-                error: "error",
-                created_by: "created_by",
-                created: "2025-01-01T01:23:45Z",
-                updated: "2025-01-01T01:23:46Z",
-                parent_id: "parent_id",
-                workflow: [
+            ],
+            results: {
+                passed: [
                     {
                         key: "value",
                     },
                 ],
-                results: {
-                    passed: [
-                        {
-                            key: "value",
-                        },
-                    ],
-                    failed: [
-                        {
-                            key: "value",
-                        },
-                    ],
-                    continue: true,
-                },
+                failed: [
+                    {
+                        key: "value",
+                    },
+                ],
+                continue: true,
             },
-            error: {
-                message: "message",
-            },
-            links: {
-                self: "https://api.ittybit.com/tasks/task_abcdefgh1234",
-                parent: "https://api.ittybit.com/tasks",
-            },
-        });
-    });
-
-    test("getTaskConfig", async () => {
-        const server = mockServerPool.createServer();
-        const client = new IttybitClient({ apiKey: "test", version: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { video: { formats: ["mp4", "webm"] }, image: {} };
-        server.mockEndpoint().get("/tasks-config").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.tasks.getTaskConfig();
-        expect(response).toEqual({
-            video: {
-                formats: ["mp4", "webm"],
-            },
-            image: {},
         });
     });
 });
