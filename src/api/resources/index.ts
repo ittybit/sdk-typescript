@@ -1,4 +1,3 @@
-export * as apiDev from "./apiDev/index.js";
 export * as automations from "./automations/index.js";
 export * as files from "./files/index.js";
 export * as media from "./media/index.js";
