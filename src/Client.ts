@@ -55,8 +55,9 @@ export class IttybitClient {
                 {
                     ACCEPT_VERSION: _options?.version,
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "0.10.5",
+                    "X-Fern-SDK-Name": "@ittybit/sdk",
+                    "X-Fern-SDK-Version": "1.0.0",
+                    "User-Agent": "@ittybit/sdk/1.0.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
