@@ -58,14 +58,7 @@ describe("Automations", () => {
                 last: "https://api.ittybit.com/automations?page=1",
             },
         };
-        server
-            .mockEndpoint()
-            .get("/automations")
-            .header("Accept-Version", "2025-08-20")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
+        server.mockEndpoint().get("/automations").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.automations.list();
         expect(response).toEqual({
@@ -314,7 +307,6 @@ describe("Automations", () => {
         server
             .mockEndpoint()
             .get("/automations/auto_abcdefgh1234")
-            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -393,7 +385,6 @@ describe("Automations", () => {
         server
             .mockEndpoint()
             .delete("/automations/auto_abcdefgh1234")
-            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -466,7 +457,6 @@ describe("Automations", () => {
         server
             .mockEndpoint()
             .patch("/automations/auto_abcdefgh1234")
-            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)

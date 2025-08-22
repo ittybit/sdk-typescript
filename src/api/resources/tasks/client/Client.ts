@@ -81,7 +81,6 @@ export class Tasks {
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
-                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -159,7 +158,6 @@ export class Tasks {
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
-                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,
@@ -231,7 +229,6 @@ export class Tasks {
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
-                "Accept-Version": "2025-08-20",
                 ACCEPT_VERSION: requestOptions?.version,
             }),
             requestOptions?.headers,

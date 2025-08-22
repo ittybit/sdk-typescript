@@ -99,14 +99,7 @@ describe("Files", () => {
                 last: "https://api.ittybit.com/files?page=5",
             },
         };
-        server
-            .mockEndpoint()
-            .get("/files")
-            .header("Accept-Version", "2025-08-20")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
+        server.mockEndpoint().get("/files").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.files.list();
         expect(response).toEqual({
@@ -260,7 +253,6 @@ describe("Files", () => {
         server
             .mockEndpoint()
             .post("/files")
-            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -377,7 +369,6 @@ describe("Files", () => {
         server
             .mockEndpoint()
             .get("/files/file_abcdefgh1234")
-            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -453,7 +444,6 @@ describe("Files", () => {
         server
             .mockEndpoint()
             .delete("/files/file_abcdefgh1234")
-            .header("Accept-Version", "2025-08-20")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -533,7 +523,6 @@ describe("Files", () => {
         server
             .mockEndpoint()
             .patch("/files/file_abcdefgh1234")
-            .header("Accept-Version", "2025-08-20")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
